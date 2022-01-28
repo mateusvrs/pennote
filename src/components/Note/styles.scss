@@ -1,0 +1,55 @@
+$base-background-color: #E5E5E5;
+
+.note-container {
+    color: #4c4c4c;
+
+    > span {
+        align-self: flex-end;
+        margin: 2px 5px 0 0;
+
+        &:hover {
+            cursor: pointer;
+            color: rgba(0, 80, 0, 0.8);
+        }
+    }
+
+    p {
+        width: 95%;
+        height: 95%;
+    }
+
+    footer {
+        width: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin: 2px 0;
+
+        div {
+            display: flex;
+            gap: 5px;
+
+            button {
+                cursor: pointer;
+
+                border: 0;
+                background-color: $base-background-color;
+
+                span {
+                    color: #4c4c4c;
+                    transition: color 0.2s, filter 0.2s;
+
+                    &.edit:hover {
+                        color: rgba(0, 0, 80, 0.8);
+                    }
+
+                    &.delete:hover {
+                        color: rgba(234, 68, 53, 0.9);
+                        filter: brightness(0.6);
+                    }
+                }
+            }
+        }
+    }
+}

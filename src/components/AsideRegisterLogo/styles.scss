@@ -1,0 +1,29 @@
+$blue-base-light-theme: #92A9BD;
+
+aside {
+    background-color: $blue-base-light-theme;
+    flex: 5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7rem;
+
+    img {
+        max-width: 325px;
+        max-height: 325px;
+    }
+
+    p {
+        text-align: center;
+        max-width: 500px;
+
+        .slogan {
+            font-family: 'Caveat', sans-serif;
+            font-size: 45px;
+            color: #2c2c2c;
+            
+        }
+    }
+}

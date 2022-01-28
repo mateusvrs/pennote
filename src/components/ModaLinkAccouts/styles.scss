@@ -1,0 +1,54 @@
+$white-background: #f1f1f1;
+$blue-base-light-theme: #92A9BD;
+
+.ReactModal__Overlay {
+    display: flex;
+    align-items: center;
+
+    .Modal {
+        border: 0;
+        border-radius: 8px;
+
+        box-shadow: 1px 0 5px rgba(0, 0, 0, 0.3);
+        outline: none;
+    
+        background-color: $white-background;
+    
+        width: 50%;
+        height: 50%;
+        margin: 0 auto;
+
+        .container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+
+            height: 100%;
+
+            .select-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+
+                width: 100%;
+
+                button {
+                    max-width: 200px;
+                    width: 100%;
+                    color: #2c2c2c;
+                }
+
+                .cancel {
+                    background-color: hsl(0, 0%, 85%);
+                }
+
+                .connect {
+                    background-color: $blue-base-light-theme;
+                }
+            }
+        }
+    }
+}

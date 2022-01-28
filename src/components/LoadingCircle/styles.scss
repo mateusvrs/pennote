@@ -1,0 +1,31 @@
+$blue-base-light-theme: #92A9BD;
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    height: 100vh;
+    margin-bottom: 8rem;
+      
+  .loading-circle {
+    height: 5rem;
+    width: 5rem;
+    border: 0.4rem solid #fefefe;
+    border-top-color: $blue-base-light-theme;
+    border-radius: 50%;
+    animation-name: loop;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes loop {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

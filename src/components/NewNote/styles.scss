@@ -1,0 +1,86 @@
+$base-background-color: #E5E5E5;
+
+.new-note-container, .note-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: $base-background-color;
+    border-radius: 8px;
+
+    box-shadow: 1px 0 4px rgba(0, 0, 0, 0.2);
+
+    width: 250px;
+
+    max-height: 250px;
+    min-height: 150px;
+
+    textarea {
+        outline: none;
+        border: 0;
+
+        font-family: 'Poppins', sans-serif;
+        font-size: 15px;
+        color: #4c4c4c;
+        background-color: inherit;
+
+        width: 95%;
+        max-height: 200px;
+        min-height: 120px;
+
+        margin: 8px;
+        resize: none;
+        
+    }
+
+    .buttons-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+
+        .block-picker {
+            position: absolute !important;
+            z-index: 1;
+            top: 45px;
+            transform: translateX(-45%);
+        }
+
+        .colorpicker-open-false {
+            display: none;
+        }
+
+        .colorpicker-open-true {
+            display: block;
+        }
+
+        .react-datepicker {
+            position: absolute;
+            top: 45px;
+            transform: translateX(-45%);
+            z-index: 1;
+        }
+
+        section > button {
+            position: relative;
+            cursor: pointer;
+            border: 0;
+            background-color: $base-background-color;
+
+            span {
+                color: #4c4c4c;
+            }
+
+            &.datepicker-open-false + div {
+                display: none;
+            }
+
+            &.datepicker-open-true + div {
+                display: block;
+
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+$box-shadow-color: rgba(0, 0, 0, 0.3);
+
+@mixin low-brightness($percentage) {
+    filter: brightness($percentage);
+    transition: filter 0.2s;
+}
+
+.register-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    color: #fefefe;
+    font-size: 16px;
+    font-weight: 500;
+
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 1px 0px 5px $box-shadow-color;
+
+    height: 50px;
+    max-width: 200px;
+    width: 100%;
+
+    font-family: 'Poppins', sans-serif;
+
+    cursor: pointer;
+
+    &:active {
+        box-shadow: 1px 0px 1px $box-shadow-color;
+    }
+
+    &:hover {
+        @include low-brightness($percentage: 0.9)
+    }
+
+    &.GitHub {
+        background-color: rgba(44, 44, 44, 0.9);
+    }
+
+    &.Google {
+        background-color: rgba(234, 68, 53, 0.9);
+    }
+}
