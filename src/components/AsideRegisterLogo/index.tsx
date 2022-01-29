@@ -5,8 +5,10 @@ import './styles.scss'
 export function AsideRegisterLogo() {
     return (
         <aside>
-            <img src={logoImg} alt="PenNote logo" />
-            <p><span className="slogan">Organize suas tarefas com elegância e facilidade</span></p>
+            <div className='logo-container'>
+                <img src={logoImg} alt="PenNote logo" />
+                <p><span className="slogan">Organize suas tarefas com elegância e facilidade</span></p>
+            </div>
         </aside>
     )
 }

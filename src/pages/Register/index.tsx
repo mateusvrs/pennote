@@ -8,8 +8,7 @@ import { AsideRegisterLogo } from '../../components/AsideRegisterLogo'
 import { RegisterButton } from '../../components/RegisterButton'
 import { useAuth } from '../../hooks/useAuth'
 import { ModalLinkAccounts } from '../../components/ModaLinkAccouts'
-
-import './styles.scss'
+import { Toaster } from 'react-hot-toast'
 
 type RegisterInfoType = {
     image: string
@@ -27,6 +26,7 @@ export function Register() {
 
     return (
         <div id="register-page">
+            <Toaster position="top-center" />
             <ModalLinkAccounts />
             <main>
                 <div className="container">
