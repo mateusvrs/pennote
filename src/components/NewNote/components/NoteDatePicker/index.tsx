@@ -1,13 +1,13 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import DatePicker from "react-datepicker";
 
-import { NoteInfoContext } from "../.."
+import { useNoteInfo } from "../../../../hooks/useNoteInfo";
 
 export function NoteDatePicker() {
     const [showDatePicker, setShowDatePicker] = useState(false)
 
-    const { noteInfo, setNoteInfo } = useContext(NoteInfoContext)
-    const { color, date } = noteInfo
+    const { noteInfo, setNoteInfo } = useNoteInfo()
+    const { color } = noteInfo
 
     return (
         <section>
@@ -20,10 +20,10 @@ export function NoteDatePicker() {
                 onChange={date => {
                     setNoteInfo({
                         ...noteInfo,
-                        date: date
+                        date: date?.toLocaleDateString() === undefined ? null : date?.toLocaleDateString()
                     })
                 }}
-                selected={date}
+                selected={new Date()}
                 inline
             />
         </section>

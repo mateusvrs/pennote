@@ -4,34 +4,57 @@ import { useAuth } from "../../hooks/useAuth"
 import './styles.scss'
 
 import photoDefault from '../../assets/images/profile-photo-default.svg'
+
 import { NewNote } from "../../components/NewNote"
 import { Note } from "../../components/Note"
 
+import { NoteInfoContextProvider } from "../../contexts/NoteInfoContext"
+import { useHome } from "../../hooks/useHome"
+
+import { signOut } from "firebase/auth"
+import { auth } from "../../services/firebase"
+
+
 export function Home() {
-    const { user } = useAuth()
+    const { user, setUser } = useAuth()
+    const { notes } = useHome()
+
     const [searchValue, setSearchValue] = useState('')
     const [isAsideOpen, setIsAsideOpen] = useState(false)
+    const [optionsOpen, setOptionsOpen] = useState(false)
+
+    
 
     return (
         <div id="home-page">
             <aside className={`home-aside aside-open-${isAsideOpen}`}>
-                <div className="content">
+                <section className="content">
                     <h1>Categorias</h1>
                     <ul>
                         <li><a><p>Matemática</p></a></li>
                         <li><a><p>Ciências</p></a></li>
                     </ul>
-                </div>
-                <a onClick={() => setIsAsideOpen(!isAsideOpen)}>
+                </section>
+                <button onClick={() => setIsAsideOpen(!isAsideOpen)}>
                     <span className="material-icons">{isAsideOpen ? 'keyboard_double_arrow_left' : 'keyboard_double_arrow_right'}</span>
-                </a>
+                </button>
             </aside>
 
             <div className="home-content">
                 <header>
                     <div className="content">
                         <h1>Geral</h1>
-                        <img src={user!.avatar != '' ? user!.avatar : photoDefault} alt="Profile image" />
+                        <button className="user-button" onClick={() => setOptionsOpen(!optionsOpen)}>
+                            <img src={user!.avatar != '' ? user!.avatar : photoDefault} alt="Profile image" />
+                        </button>
+                        <div className="user-options" style={{ display: optionsOpen ? 'flex' : 'none' }}>
+                            <p>{user?.name}</p>
+                            <button>Trocar de conta</button>
+                            <button onClick={() => {
+                                signOut(auth)
+                                setUser(undefined)
+                            }}>Sair</button>
+                        </div>
                     </div>
                 </header>
 
@@ -53,8 +76,14 @@ export function Home() {
                         </a>
                     </div>
                     <div className="notes-container">
-                        <NewNote />
-                        <Note color="red" date="27/01/2022" text="Exemplo de anotação" />
+                        <NoteInfoContextProvider>
+                            <NewNote />
+                            {notes.map((note, index) => {
+                                if (note.text.toLowerCase().includes(searchValue)) {
+                                    return <Note key={index} id={note.id} color={note.color} text={note.text} date={note.date} />
+                                }
+                            })}
+                        </NoteInfoContextProvider>
                     </div>
                 </main>
             </div>
