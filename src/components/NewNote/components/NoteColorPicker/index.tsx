@@ -9,6 +9,7 @@ export function NoteColorPicker() {
     const { noteInfo, setNoteInfo } = useNoteInfo()
     const { color } = noteInfo
 
+    
     return (
         <section>
             <button className='color-button' style={{ backgroundColor: color }} type='button' onClick={() => {

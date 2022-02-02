@@ -1,8 +1,9 @@
-import { FormEvent } from 'react'
+import { FormEvent, useRef, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 
 import { NoteColorPicker } from './components/NoteColorPicker';
 import { NoteDatePicker } from './components/NoteDatePicker';
+import { categoryRefType, NoteCategorySelect } from './components/NoteCategorySelect';
 
 import "react-datepicker/dist/react-datepicker.css";
 import './styles.scss'
@@ -18,13 +19,13 @@ export function NewNote() {
     const { noteInfo, defaultNoteInfo, setNoteInfo } = useNoteInfo()
     const { color, text } = noteInfo
 
+    const [categoryRef, setCategoryRef] = useState<categoryRefType>(null)
+    
     async function handleCreateOrUpdateNewNote(event: FormEvent) {
         event.preventDefault()
         if (noteInfo.text.trim() !== '') {
             if (!noteInfo.id) {
-                await addDoc(collection(database, `users/${user?.id}/notes`), noteInfo).catch(e => {
-                    console.log(e)
-                })
+                await addDoc(collection(database, `users/${user?.id}/notes`), noteInfo)
             } else {
                 await updateDoc(doc(database, `users/${user?.id}/notes/${noteInfo.id}`), noteInfo)
             }
@@ -32,6 +33,7 @@ export function NewNote() {
             toast.error("Write something")
         }
         setNoteInfo(defaultNoteInfo)
+        categoryRef?.clearValue()
     }
 
     return (
@@ -46,6 +48,7 @@ export function NewNote() {
                 <div className="buttons-container">
                     <NoteColorPicker />
                     <NoteDatePicker />
+                    <NoteCategorySelect categoryRef={categoryRef} setCategoryRef={setCategoryRef} />
                     <section>
                         <button style={{ backgroundColor: color }} type='submit' >
                             <span className="material-icons">add</span>

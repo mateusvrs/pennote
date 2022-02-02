@@ -90,5 +90,23 @@ $base-background-color: #E5E5E5;
 
             }
         }
+
+        section {
+            .creatable-container {
+                position: absolute;
+
+                width: 65%;
+
+                right: 17.5%;
+                top: 2.5rem;
+
+                @media (max-width: 800px) {
+                    width: 75%;
+                    right: 12.5%;
+                }
+
+                
+            }
+        }
     }
 }
