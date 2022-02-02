@@ -7,8 +7,8 @@ import './styles.scss'
 import { AsideRegisterLogo } from '../../components/AsideRegisterLogo'
 import { RegisterButton } from '../../components/RegisterButton'
 import { useAuth } from '../../hooks/useAuth'
-import { ModalLinkAccounts } from '../../components/ModaLinkAccouts'
 import { Toaster } from 'react-hot-toast'
+import { ModalLinkAccounts } from '../../components/ModalLinkAccounts'
 
 type RegisterInfoType = {
     image: string
