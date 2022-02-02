@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 
 import { NoteColorPicker } from './components/NoteColorPicker';
