@@ -1,11 +1,13 @@
 import { fetchSignInMethodsForEmail, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, linkWithCredential, OAuthCredential, OAuthProvider, sendEmailVerification, signInWithPopup, signInWithRedirect, User, UserCredential } from 'firebase/auth'
-import { database } from "../services/firebase"
 import { auth } from "../services/firebase"
-import { doc, getDoc, setDoc } from "firebase/firestore"
 
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { isMobile } from 'react-device-detect';
 import toast from "react-hot-toast"
+
+import defaultImgProfile from '../assets/images/profile-photo-default.svg'
+
+import { useModalLinkAccount } from '../hooks/useModalLinkAccount';
 
 type UserType = {
     id: string
@@ -21,28 +23,15 @@ type AuthContextType = {
     linkAccounts: (email: string, credential: OAuthCredential) => Promise<void>
 }
 
-type ModalLinkAccountContextType = {
-    modalInfo: ModalInfoType
-    setModalInfo: React.Dispatch<React.SetStateAction<ModalInfoType>>
-}
-
-type ModalInfoType = {
-    isModalOpen: boolean
-    email: string | null
-    credential: OAuthCredential | null
-}
-
 type AuthContextProviderProps = {
     children: ReactNode
 }
 
 export const AuthContext = createContext({} as AuthContextType)
-export const ModalLinkAccountContext = createContext({} as ModalLinkAccountContextType)
 
 export function AuthContextProvider(props: AuthContextProviderProps) {
     const [user, setUser] = useState<UserType>()
-
-    const [modalInfo, setModalInfo] = useState({} as ModalInfoType)
+    const { setModalInfo } = useModalLinkAccount()
 
     useEffect(() => {
         getRedirectResult(auth).then(result => handleEmailVerification(result)).catch(error => handleAccountExistsWithDifferentCredentialError(error))
@@ -53,19 +42,13 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
 
                 const newUser = {
                     id: uid,
-                    avatar: !photoURL ? '' : photoURL,
-                    name: !displayName ? '' : displayName
+                    avatar: !photoURL ? defaultImgProfile : photoURL,
+                    name: !displayName ? 'Hello 😀' : displayName
                 }
 
                 if (emailVerified) {
                     setUser(newUser)
                 }
-                
-                getDoc(doc(database, `users/${uid}`)).then(result => {
-                    if (!result.exists()) {
-                        setDoc(doc(database, 'users', uid), newUser)
-                    }
-                })
             }
         })
 
@@ -73,7 +56,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
             unsubscribe()
         }
 
-    }, [])
+    }, [auth])
 
     function handleEmailVerification(result: UserCredential | null) {
         const user = result?.user
@@ -92,7 +75,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
             currentUser.getIdToken(true).then(() => document.location.reload())
         } else {
             auth.currentUser?.reload().then(() => {
-                if(auth.currentUser?.emailVerified){
+                if (auth.currentUser?.emailVerified) {
                     currentUser.getIdToken(true).then(() => document.location.reload())
                 } else {
                     toast('Verify your email', { icon: '✉️' });
@@ -142,10 +125,8 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     }
 
     return (
-        <ModalLinkAccountContext.Provider value={{ modalInfo, setModalInfo }}>
-            <AuthContext.Provider value={{ user, setUser, SignWithGoogle, SignWithGitHub, linkAccounts }}>
-                {props.children}
-            </AuthContext.Provider>
-        </ModalLinkAccountContext.Provider>
+        <AuthContext.Provider value={{ user, setUser, SignWithGoogle, SignWithGitHub, linkAccounts }}>
+            {props.children}
+        </AuthContext.Provider>
     )
 }
