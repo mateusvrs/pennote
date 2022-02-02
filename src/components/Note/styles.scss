@@ -3,20 +3,36 @@ $base-background-color: #E5E5E5;
 .note-container {
     color: #4c4c4c;
 
-    > span {
-        align-self: flex-end;
-        margin: 2px 5px 0 0;
+    header {
+        display: flex;
+        justify-content: space-between;
 
-        &:hover {
-            cursor: pointer;
-            color: rgba(0, 80, 0, 0.8);
+        border-bottom: none !important;
+        width: 95%;
+        max-height: 30px;
+
+        h1 {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        > span {
+            margin-top: 5px;
+
+            &:hover {
+                cursor: pointer;
+                color: rgba(0, 80, 0, 0.8);
+            }
         }
     }
 
-    p {
-        text-decoration: none;
+    main {
         width: 95%;
-        height: 95%;
+        height: 100%;
+        
+        p {
+            text-decoration: none;
+        }
     }
 
     footer {
