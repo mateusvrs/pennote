@@ -45,6 +45,14 @@
     </div>
     <br>
     <div>
+        <h2>📱 Compatibility</h2>
+        <ul>
+            <li>Browser (Web)</li>
+            <li>Progressive Web App (PWA)</li>
+        </ul>
+    </div>
+    <br>
+    <div>
         <h2>🎨 Figma</h2>
         <a href="https://www.figma.com/file/czs9qQAReO0HBxXesCYmoq/PenNote?node-id=0%3A1">Light and Dark mode design</a>
     </div>
