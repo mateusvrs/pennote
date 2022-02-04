@@ -1,7 +1,8 @@
 import { fetchSignInMethodsForEmail, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, linkWithCredential, OAuthCredential, OAuthProvider, sendEmailVerification, signInWithPopup, signInWithRedirect, User, UserCredential } from 'firebase/auth'
-import { auth } from "../services/firebase"
+import { auth, database } from "../services/firebase"
+import { enableIndexedDbPersistence } from 'firebase/firestore';
 
-import { createContext, ReactNode, useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import { isMobile } from 'react-device-detect';
 import toast from "react-hot-toast"
 
@@ -9,31 +10,26 @@ import defaultImgProfile from '../assets/images/profile-photo-default.svg'
 
 import { useModalLinkAccount } from '../hooks/useModalLinkAccount';
 
-type UserType = {
-    id: string
-    avatar: string
-    name: string
-}
-
-type AuthContextType = {
-    user: UserType | undefined
-    setUser: (value: UserType | undefined) => void
-    SignWithGoogle: () => Promise<void>
-    SignWithGitHub: () => Promise<void>
-    linkAccounts: (email: string, credential: OAuthCredential) => Promise<void>
-}
-
-type AuthContextProviderProps = {
-    children: ReactNode
-}
+import { AuthContextProviderProps, AuthContextType, UserType } from '../types/contexts/AuthContext';
+import { useLoading } from '../hooks/useLoading';
 
 export const AuthContext = createContext({} as AuthContextType)
 
 export function AuthContextProvider(props: AuthContextProviderProps) {
     const [user, setUser] = useState<UserType>()
     const { setModalInfo } = useModalLinkAccount()
+    const { setIsLoading } = useLoading()
 
     useEffect(() => {
+        
+        enableIndexedDbPersistence(database).catch(error => {
+            if (error.code === 'failed-precondition') {
+                console.log('Multiple tabs open, persistence can only be enabled at once')
+            } else if (error.code === 'unimplemented') {
+                console.log('The current browser does not support all of the features required to enable persistence')
+            }
+        })
+
         getRedirectResult(auth).then(result => handleEmailVerification(result)).catch(error => handleAccountExistsWithDifferentCredentialError(error))
 
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -48,7 +44,10 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
 
                 if (emailVerified) {
                     setUser(newUser)
+                    setIsLoading(false)
                 }
+            } else {
+                setIsLoading(false)
             }
         })
 

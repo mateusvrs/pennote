@@ -5,20 +5,19 @@ import './styles.scss'
 
 import { NewNote } from "../../components/NewNote"
 import { Note } from "../../components/Note"
+import { DatePickerComponent } from "../../components/DatePickerComponent"
 
 import { NoteInfoContextProvider } from "../../contexts/NoteInfoContext"
-import { NoteInfoType, useHome } from "../../hooks/useHome"
 
 import { signOut } from "firebase/auth"
-import { auth } from "../../services/firebase"
-import { DatePickerComponent } from "../../components/DatePickerComponent"
+import { auth, database } from "../../services/firebase"
+import { clearIndexedDbPersistence } from "firebase/firestore"
+
+import { useHome } from "../../hooks/useHome"
 import { useCategories } from "../../hooks/useCategories"
 
-type FilterDateType = Date | null
-type FilterCategoryType = {
-    label: string | null
-    value: string | null
-}
+import { NoteInfoType } from "../../types/hooks/useHome"
+import { FilterCategoryType, FilterDateType } from "../../types/pages/Home"
 
 export function Home() {
     const { user, setUser } = useAuth()
@@ -79,8 +78,10 @@ export function Home() {
                             <p>{user?.name}</p>
                             <button>Trocar de conta</button>
                             <button onClick={() => {
-                                signOut(auth)
-                                setUser(undefined)
+                                signOut(auth).then(() => {
+                                    clearIndexedDbPersistence(database)
+                                    setUser(undefined)
+                                })
                             }}>Sair</button>
                         </div>
                     </div>

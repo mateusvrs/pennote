@@ -1,8 +1,6 @@
 import DatePicker from "react-datepicker";
 
-type DatePickerComponentProps = {
-    handleDate: (value: Date | null) => void
-}
+import { DatePickerComponentProps } from "../../types/components/DatePickerComponent";
 
 export function DatePickerComponent({ handleDate }: DatePickerComponentProps) {
     return (

@@ -5,9 +5,7 @@ import './styles.scss'
 
 import Modal from 'react-modal'
 
-type ModalLinkAccountsProps = {
-    isTesting?: boolean
-}
+import { ModalLinkAccountsProps } from "../../types/components/ModalLinkAccounts"
 
 export function ModalLinkAccounts({ isTesting = false }: ModalLinkAccountsProps) {
     const { linkAccounts } = useAuth()

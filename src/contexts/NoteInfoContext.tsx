@@ -1,26 +1,6 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, useState } from "react";
 
-export type NoteInfoType = {
-    color: string
-    date: string | null
-    text: string
-    id: string | null
-    isComplete: boolean
-    category: {
-        value: string | null
-        label: string | null
-    }
-}
-
-type NoteInfoContextType = {
-    noteInfo: NoteInfoType
-    defaultNoteInfo: NoteInfoType
-    setNoteInfo: (value: NoteInfoType) => void
-}
-
-type NoteInfoContextProviderProps = {
-    children: ReactNode
-}
+import { NoteInfoContextProviderProps, NoteInfoContextType, NoteInfoType } from "../types/contexts/NoteInfoContext";
 
 export const NoteInfoContext = createContext({} as NoteInfoContextType)
 

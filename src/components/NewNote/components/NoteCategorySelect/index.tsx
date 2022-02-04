@@ -2,20 +2,13 @@ import { addDoc, collection } from "firebase/firestore"
 import { database } from "../../../../services/firebase"
 
 import { useAuth } from "../../../../hooks/useAuth"
-import { CategoriesType, useCategories } from "../../../../hooks/useCategories"
+import { useCategories } from "../../../../hooks/useCategories"
 import { useNoteInfo } from "../../../../hooks/useNoteInfo"
 
 import { useState } from "react"
 import CreatableSelect from 'react-select/creatable'
-import { GroupBase, SingleValue } from "react-select"
-import Select from "react-select/dist/declarations/src/Select"
 
-export type categoryRefType = Select<CategoriesType, false, GroupBase<CategoriesType>> | null
-
-type NoteCategorySelectProps = {
-    categoryRef: categoryRefType
-    setCategoryRef: (value: categoryRefType) => void
-}
+import { NoteCategorySelectProps, SelectedCategoryType } from "../../../../types/components/NewNote/NoteCategorySelect"
 
 export function NoteCategorySelect(props: NoteCategorySelectProps) {
     const { user } = useAuth()
@@ -31,7 +24,7 @@ export function NoteCategorySelect(props: NoteCategorySelectProps) {
         })
     }
 
-    function handleSelectCategory(selectedCategory: SingleValue<CategoriesType>) {
+    function handleSelectCategory(selectedCategory: SelectedCategoryType) {
         const value = selectedCategory?.value
         const label = selectedCategory?.label
 

@@ -6,15 +6,12 @@ import './styles.scss'
 
 import { AsideRegisterLogo } from '../../components/AsideRegisterLogo'
 import { RegisterButton } from '../../components/RegisterButton'
-import { useAuth } from '../../hooks/useAuth'
-import { Toaster } from 'react-hot-toast'
 import { ModalLinkAccounts } from '../../components/ModalLinkAccounts'
+import { Toaster } from 'react-hot-toast'
 
-type RegisterInfoType = {
-    image: string
-    serviceName: string
-    signFunction: () => Promise<void>
-}
+import { useAuth } from '../../hooks/useAuth'
+
+import { RegisterInfoType } from '../../types/pages/Register'
 
 export function Register() {
     const { SignWithGoogle, SignWithGitHub } = useAuth()

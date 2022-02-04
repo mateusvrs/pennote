@@ -7,17 +7,7 @@ import { useState } from 'react'
 
 import './styles.scss'
 
-type NoteProps = {
-    color: string
-    date: string | null
-    text: string
-    id: string
-    isComplete: boolean
-    category: {
-        value: string | null
-        label: string | null
-    }
-}
+import { NoteProps } from '../../types/components/Note'
 
 export function Note(props: NoteProps) {
     const { user } = useAuth()

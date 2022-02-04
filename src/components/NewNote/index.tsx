@@ -3,7 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import { NoteColorPicker } from './components/NoteColorPicker';
 import { NoteDatePicker } from './components/NoteDatePicker';
-import { categoryRefType, NoteCategorySelect } from './components/NoteCategorySelect';
+import { NoteCategorySelect } from './components/NoteCategorySelect';
 
 import "react-datepicker/dist/react-datepicker.css";
 import './styles.scss'
@@ -14,12 +14,14 @@ import { useAuth } from '../../hooks/useAuth';
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { database } from '../../services/firebase';
 
+import { CategoryRefType } from '../../types/components/NewNote/NoteCategorySelect';
+
 export function NewNote() {
     const { user } = useAuth()
     const { noteInfo, defaultNoteInfo, setNoteInfo } = useNoteInfo()
     const { color, text } = noteInfo
 
-    const [categoryRef, setCategoryRef] = useState<categoryRefType>(null)
+    const [categoryRef, setCategoryRef] = useState<CategoryRefType>(null)
     
     async function handleCreateOrUpdateNewNote(event: FormEvent) {
         event.preventDefault()

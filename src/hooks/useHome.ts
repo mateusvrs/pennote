@@ -4,17 +4,7 @@ import { database } from "../services/firebase"
 import { useEffect, useState } from "react"
 import { useAuth } from "./useAuth"
 
-export type NoteInfoType = {
-    color: string
-    date: string | null
-    text: string
-    id: string
-    isComplete: boolean
-    category: {
-        value: string | null
-        label: string | null
-    }
-}
+import { NoteInfoType } from "../types/hooks/useHome"
 
 export function useHome() {
     const { user } = useAuth()

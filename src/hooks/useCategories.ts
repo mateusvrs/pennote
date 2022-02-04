@@ -5,10 +5,7 @@ import { useEffect, useState } from "react"
 
 import { useAuth } from "./useAuth"
 
-export type CategoriesType = {
-    value: string | null 
-    label: string | null 
-}
+import { CategoriesType } from "../types/hooks/useCategories"
 
 export function useCategories() {
     const { user } = useAuth()
