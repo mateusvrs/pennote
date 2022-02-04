@@ -13,7 +13,11 @@ export function RedirectPages() {
 
     function loadPageByUserState(user: User | undefined) {
         if (user) {
-            return <Home />
+            if (isLoading) {
+                return <LoadingCircle />
+            } else {
+                return <Home />
+            }
         } else {
             if (isLoading) {
                 return <LoadingCircle />

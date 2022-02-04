@@ -1,5 +1,7 @@
 $box-shadow-color: rgba(0, 0, 0, 0.3);
 
+$dark-color: #121212;
+
 @mixin low-brightness($percentage) {
     filter: brightness($percentage);
     transition: filter 0.2s;
@@ -41,5 +43,26 @@ $box-shadow-color: rgba(0, 0, 0, 0.3);
 
     &.Google {
         background-color: rgba(234, 68, 53, 0.9);
+    }
+}
+
+.dark {
+    .register-button {
+        &:hover {
+            @include low-brightness($percentage: 0.95)
+        }
+
+        &.GitHub {
+            color: $dark-color;
+            background-color: #fff;
+
+            img {
+                content: url('../../assets/images/github-dark.svg');
+            }
+        }
+
+        &.Google {
+            background-color: rgba(234, 68, 53, 0.75);
+        }
     }
 }

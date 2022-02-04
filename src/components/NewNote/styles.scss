@@ -110,3 +110,25 @@ $base-background-color: #E5E5E5;
         }
     }
 }
+
+.dark {
+    .new-note-container, .note-container {
+        filter: brightness(0.8);
+
+        textarea {
+            color: #2c2c2c;
+
+            &::placeholder {
+                color: #4c4c4c;
+            }
+        }
+
+        .buttons-container {
+            section > button {
+                span {
+                    color: #2c2c2c;
+                }
+            }
+        }
+    }
+}

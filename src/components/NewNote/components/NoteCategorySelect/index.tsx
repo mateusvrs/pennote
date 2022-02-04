@@ -4,11 +4,13 @@ import { database } from "../../../../services/firebase"
 import { useAuth } from "../../../../hooks/useAuth"
 import { useCategories } from "../../../../hooks/useCategories"
 import { useNoteInfo } from "../../../../hooks/useNoteInfo"
-
 import { useState } from "react"
+
 import CreatableSelect from 'react-select/creatable'
 
 import { NoteCategorySelectProps, SelectedCategoryType } from "../../../../types/components/NewNote/NoteCategorySelect"
+
+import './styles.scss'
 
 export function NoteCategorySelect(props: NoteCategorySelectProps) {
     const { user } = useAuth()

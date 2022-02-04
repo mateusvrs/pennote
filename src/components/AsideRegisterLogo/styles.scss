@@ -1,5 +1,8 @@
 $blue-base-light-theme: #92A9BD;
 
+$blue-base-dark-theme: #668199;
+$dark-background: #212121;
+
 aside {
     background-color: $blue-base-light-theme;
     flex: 5;
@@ -51,6 +54,24 @@ aside {
         p {
             .slogan {
                 font-size: 25px;
+            }
+        }
+    }
+}
+
+.dark {
+    aside {
+        background-color: $blue-base-dark-theme;
+
+        .logo-container {
+            img {
+                content: url("../../assets/images/logo-dark.svg");
+            }
+
+            p {
+                .slogan {
+                    color: $dark-background;
+                }
             }
         }
     }

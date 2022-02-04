@@ -1,0 +1,11 @@
+$dark-background: #121212;
+
+.dark {
+    .block-picker {
+        background-color: $dark-background !important;
+
+        > div {
+            border-color: transparent transparent $dark-background !important;
+        }
+    }
+}

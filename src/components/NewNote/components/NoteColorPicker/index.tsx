@@ -1,6 +1,9 @@
 import { useState } from 'react'
-import { BlockPicker } from 'react-color'
 import { useNoteInfo } from '../../../../hooks/useNoteInfo'
+
+import { BlockPicker } from 'react-color'
+
+import './styles.scss'
 
 export function NoteColorPicker() {
     const defaultColors = ['#E5E5E5', '#92A9BD', '#9AB3F5', '#D5BFBF', '#F1AE89', '#DED7B1', '#87AAAA', '#FD9191', '#FDE49C', '#DA9FF9']

@@ -2,6 +2,9 @@ $white-background: #f1f1f1;
 $blue-base-light-theme: #92A9BD;
 $box-shadow-color: rgba(0, 0, 0, 0.3);
 
+$blue-base-dark-theme: #668199;
+$dark-background: #212121;
+
 .ReactModal__Overlay {
     display: flex;
     align-items: center;
@@ -81,6 +84,37 @@ $box-shadow-color: rgba(0, 0, 0, 0.3);
         .Modal {
             width: 80%;
             height: 80%;
+        }
+    }
+}
+
+.dark {
+    .ReactModal__Overlay {
+        background-color: rgba(33, 33, 33, 0.6) !important;
+
+        .Modal {
+            color: #fff;
+            background-color: $dark-background;
+
+            .container {
+                .select-container {
+                    button {
+                        color: $dark-background;
+
+                        &:hover {
+                            filter: brightness(0.95);
+                        }
+                    }
+
+                    .cancel {
+                        background-color: rgba(240, 240, 240, 0.65);
+                    }
+
+                    .connect {
+                        background-color: $blue-base-dark-theme;
+                    }
+                }
+            }
         }
     }
 }

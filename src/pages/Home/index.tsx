@@ -18,6 +18,7 @@ import { useCategories } from "../../hooks/useCategories"
 
 import { NoteInfoType } from "../../types/hooks/useHome"
 import { FilterCategoryType, FilterDateType } from "../../types/pages/Home"
+import { ToggleDark } from "../../components/ToggleDark"
 
 export function Home() {
     const { user, setUser } = useAuth()
@@ -53,6 +54,7 @@ export function Home() {
         <div id="home-page">
             <aside className={`home-aside aside-open-${isAsideOpen}`}>
                 <section className="content">
+                    <ToggleDark />
                     <h1>Categorias</h1>
                     <ul>
                         <li><button type="button" onClick={() => setFilterCategory({label: 'Geral', value: null})}><p>Geral</p></button></li>
@@ -80,8 +82,8 @@ export function Home() {
                             <button onClick={() => {
                                 signOut(auth).then(() => {
                                     clearIndexedDbPersistence(database)
-                                    setUser(undefined)
                                 })
+                                setUser(undefined)
                             }}>Sair</button>
                         </div>
                     </div>

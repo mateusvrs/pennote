@@ -10,11 +10,14 @@ import { ModalLinkAccounts } from '../../components/ModalLinkAccounts'
 import { Toaster } from 'react-hot-toast'
 
 import { useAuth } from '../../hooks/useAuth'
+import { useContext } from 'react'
+import { DarkContext } from '../../contexts/DarkContext'
 
 import { RegisterInfoType } from '../../types/pages/Register'
 
 export function Register() {
     const { SignWithGoogle, SignWithGitHub } = useAuth()
+    const { isDark } = useContext(DarkContext)
 
     const registerOptionsInfo: RegisterInfoType[] = [
         { image: githubImg, serviceName: 'GitHub', signFunction: SignWithGitHub },
@@ -23,7 +26,12 @@ export function Register() {
 
     return (
         <div id="register-page">
-            <Toaster position="top-center" />
+            <Toaster position="top-center" toastOptions={{
+                style: {
+                    backgroundColor: isDark ? '#121212' : 'none',
+                    color: isDark ? '#fff' : 'none'
+                }
+            }} />
             <ModalLinkAccounts />
             <main>
                 <div className="container">

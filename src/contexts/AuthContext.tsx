@@ -2,7 +2,7 @@ import { fetchSignInMethodsForEmail, getRedirectResult, GithubAuthProvider, Goog
 import { auth, database } from "../services/firebase"
 import { enableIndexedDbPersistence } from 'firebase/firestore';
 
-import { createContext, useEffect, useState } from "react"
+import { createContext, useCallback, useEffect, useState } from "react"
 import { isMobile } from 'react-device-detect';
 import toast from "react-hot-toast"
 
@@ -19,6 +19,14 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     const [user, setUser] = useState<UserType>()
     const { setModalInfo } = useModalLinkAccount()
     const { setIsLoading } = useLoading()
+
+    const handleAccountExistsWithDifferentCredentialError = useCallback((error: any) => {
+        const credential = OAuthProvider.credentialFromError(error)
+        const email = error.customData?.email
+        if (error.code === 'auth/account-exists-with-different-credential') {
+            setModalInfo({ isModalOpen: true, email: email, credential: credential })
+        }
+    }, [setModalInfo])
 
     useEffect(() => {
         
@@ -44,6 +52,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
 
                 if (emailVerified) {
                     setUser(newUser)
+                } else {
                     setIsLoading(false)
                 }
             } else {
@@ -55,7 +64,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
             unsubscribe()
         }
 
-    }, [auth])
+    }, [handleAccountExistsWithDifferentCredentialError, setIsLoading])
 
     function handleEmailVerification(result: UserCredential | null) {
         const user = result?.user
@@ -80,14 +89,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
                     toast('Verify your email', { icon: '✉️' });
                 }
             })
-        }
-    }
-
-    function handleAccountExistsWithDifferentCredentialError(error: any) {
-        const credential = OAuthProvider.credentialFromError(error)
-        const email = error.customData?.email
-        if (error.code === 'auth/account-exists-with-different-credential') {
-            setModalInfo({ isModalOpen: true, email: email, credential: credential })
         }
     }
 

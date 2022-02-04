@@ -1,5 +1,7 @@
 $blue-base-light-theme: #92A9BD;
 
+$blue-base-dark-theme: #668199;
+
 .loading-container {
     display: flex;
     justify-content: center;
@@ -26,5 +28,15 @@ $blue-base-light-theme: #92A9BD;
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.dark {
+  .loading-container {
+    .loading-circle {
+      border: 0.4rem solid #121212;
+
+      border-top-color: $blue-base-dark-theme;
+    }
   }
 }

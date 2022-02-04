@@ -1,6 +1,9 @@
 $blue-base-light-theme: #92A9BD;
 $white-background: #f1f1f1;
 
+$dark-background: #212121;
+$blue-base-dark-theme: #668199;
+
 #home-page {
     position: relative;
     min-height: 100vh;
@@ -35,6 +38,7 @@ $white-background: #f1f1f1;
             h1 {
                 text-align: center;
                 margin: 1rem 0;
+                margin-top: 2rem;
                 font-size: 30px;
                 font-weight: 400;
             }
@@ -258,6 +262,90 @@ $white-background: #f1f1f1;
                 .note-container, .new-note-container {
                     flex-grow: 1;
                 } 
+            }
+        }
+    }
+}
+
+.dark {
+    #home-page {
+        color: #f0f0f0;
+
+        .home-aside {
+            .content{
+                color: #121212;
+
+                ul {
+                    li {
+                        button {
+                            background-color: $blue-base-dark-theme;
+                        }
+
+                        p {
+                            color: #121212;
+                        }
+                    }
+                }
+            }
+
+            > button {
+                background-color: $blue-base-dark-theme;
+            }
+        }
+
+        .home-content {
+            header {
+                border-bottom: 1px solid $blue-base-dark-theme;
+
+                .content {
+                    .user-options {
+                        background-color: #121212;
+
+                        button, p {
+                            background-color: #121212;
+                            color: #fefefe;
+                        }
+
+                        button {
+                            &:hover {
+                                color: #A8A8B3;
+                            }
+                        }
+                    }
+
+                    .user-button {
+                        background-color: $dark-background;
+                    }
+                }
+            }
+
+            main {
+                .top-container {
+                    color: #c4c4c4;
+
+                    .search-container {
+                        input {
+                            &::placeholder {
+                                color: #bbbbbb;
+                            }
+
+                            color: #c4c4c4;
+                            background-color: $dark-background;
+                        }
+                    }
+
+                    .calendar-container {
+                        .calendar-button-container {
+                            color: #c4c4c4;
+                            background-color: $dark-background;
+                        }
+
+                        .calendar-button-reset {
+                            color: #c4c4c4;
+                            background-color: $dark-background;
+                        }
+                    }
+                }
             }
         }
     }

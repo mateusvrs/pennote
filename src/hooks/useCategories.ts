@@ -19,8 +19,8 @@ export function useCategories() {
             docsSnap.docs.forEach(value => {
                 const { name } = value.data()
                 newCategories.push({ value: value.id, label: name })
-                setCategories(newCategories)
             })
+            setCategories(newCategories)
         })
 
         return () => {

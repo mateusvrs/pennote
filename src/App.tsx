@@ -1,6 +1,7 @@
 import { RedirectPages } from "./components/RedirectPages";
 
 import { AuthContextProvider } from "./contexts/AuthContext";
+import { DarkContextProvider } from "./contexts/DarkContext";
 import { LoadingContextProvider } from "./contexts/LoadingContext";
 import { ModalLinkAccountsContextProvider } from "./contexts/ModalLInkContext";
 
@@ -9,7 +10,9 @@ function App() {
     <LoadingContextProvider>
       <ModalLinkAccountsContextProvider>
         <AuthContextProvider>
-          <RedirectPages />
+          <DarkContextProvider>
+            <RedirectPages />
+          </DarkContextProvider>
         </AuthContextProvider>
       </ModalLinkAccountsContextProvider>
     </LoadingContextProvider>

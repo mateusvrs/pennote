@@ -1,0 +1,46 @@
+$dark-bg: #121212;
+
+.dark {
+    .css-b62m3t-container {
+        .css-1pahdxg-control {
+            border: 1px solid $dark-bg;
+            background-color: $dark-bg !important;
+            box-shadow: 0 0 0 1px black;
+
+            .css-1pndypt-Input {
+                color: #fefefe;
+            }
+
+            &:hover {
+                border-color: #bdbdbd;
+            }
+        }
+
+        .css-1s2u09g-control {
+            border: 1px solid $dark-bg;
+            background-color: $dark-bg !important;
+
+            &:hover {
+                border-color: #bdbdbd;
+            }
+        }
+
+        .css-qc6sy-singleValue {
+            color: #fefefe;
+        }
+
+        .css-26l3qy-menu {
+            background-color: $dark-bg;
+
+            div {
+                background-color: $dark-bg;
+
+                div {
+                    &:hover {
+                        filter: brightness(0.85) contrast(1.1);
+                    }
+                }
+            }
+        }
+    }
+}

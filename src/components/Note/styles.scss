@@ -70,3 +70,33 @@ $base-background-color: #E5E5E5;
         }
     }
 }
+
+.dark {
+    .note-container {
+        header {
+            h1 {
+                color: #1c1c1c;
+            }
+
+            > span {
+                color: #2c2c2c;
+            }
+        }
+
+        main {
+            p {
+                color: #2c2c2c;
+            }
+        }
+
+        footer {
+            div {
+                button {
+                    span {
+                        color: #2c2c2c;
+                    }
+                }
+            }
+        }
+    }
+}

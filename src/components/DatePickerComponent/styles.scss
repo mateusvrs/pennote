@@ -1,0 +1,44 @@
+$dark-background: #212121;
+$blue-base-dark-theme: #668199;
+
+$day-selected: rgba(102, 129, 153, 0.65);
+$text-color: #fefefe;
+
+div {
+
+    .react-datepicker__day {
+        &:hover {
+            background-color: $day-selected;
+        }
+    }
+
+    .react-datepicker__day--selected, .react-datepicker__day--keyboard-selected {
+        color: #121212;
+        background-color: $day-selected;
+    }
+}
+
+.dark {
+    div {
+        .react-datepicker {
+            background-color: $dark-background;
+            border: 1px solid #121212;
+
+            .react-datepicker__header {
+                background-color: $dark-background;
+
+                .react-datepicker__current-month {
+                    color: $text-color;
+                }
+
+                .react-datepicker__day-name {
+                    color: $text-color;
+                }
+            }
+
+            .react-datepicker__day {
+                color: $text-color;
+            }
+        }
+    }
+}
