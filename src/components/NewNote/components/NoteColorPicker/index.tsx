@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNoteInfo } from '../../../../hooks/useNoteInfo'
+import { useHideElements } from '../../../../hooks/useHideElements'
 
 import { BlockPicker } from 'react-color'
 
@@ -12,9 +13,10 @@ export function NoteColorPicker() {
     const { noteInfo, setNoteInfo } = useNoteInfo()
     const { color } = noteInfo
 
-    
+    useHideElements({ elementId: 'block-picker-section', setShowElement: setShowColorPicker })
+
     return (
-        <section>
+        <section id='block-picker-section'>
             <button className='color-button' style={{ backgroundColor: color }} type='button' onClick={() => {
                 setShowColorPicker(!showColorPicker)
 

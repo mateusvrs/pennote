@@ -51,7 +51,6 @@ $base-background-color: #E5E5E5;
 
         .block-picker {
             position: absolute !important;
-            z-index: 1;
             top: 45px;
             transform: translateX(-45%);
         }
@@ -67,7 +66,7 @@ $base-background-color: #E5E5E5;
         .react-datepicker {
             position: absolute;
             top: 45px;
-            transform: translateX(-45%);
+            transform: translateX(-40%);
             z-index: 1;
         }
 
@@ -95,17 +94,10 @@ $base-background-color: #E5E5E5;
             .creatable-container {
                 position: absolute;
 
-                width: 65%;
+                width: 90%;
 
-                right: 17.5%;
-                top: 2.5rem;
-
-                @media (max-width: 800px) {
-                    width: 75%;
-                    right: 12.5%;
-                }
-
-                
+                right: 5%;
+                top: 2.5rem;                
             }
         }
     }

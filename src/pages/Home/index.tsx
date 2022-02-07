@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
+import { useHideElements } from "../../hooks/useHideElements"
 
 import './styles.scss'
 
@@ -28,11 +29,15 @@ export function Home() {
     const [showDatePicker, setShowDatePicker] = useState(false)
 
     const [filterDate, setFilterDate] = useState<FilterDateType>(null)
-    const [filterCategory, setFilterCategory] = useState<FilterCategoryType>({label: 'Geral', value: null})
+    const [filterCategory, setFilterCategory] = useState<FilterCategoryType>({ label: 'Geral', value: null })
     const [searchValue, setSearchValue] = useState('')
 
     const [isAsideOpen, setIsAsideOpen] = useState(false)
     const [optionsOpen, setOptionsOpen] = useState(false)
+
+    useHideElements({ elementId: 'date-picker-filter-div', setShowElement: setShowDatePicker })
+    useHideElements({ elementId: 'home-aside', setShowElement: setIsAsideOpen })
+    useHideElements({ elementId: 'user-options', setShowElement: setOptionsOpen })
 
     function handleNewDate(date: Date | null) {
         if (date) {
@@ -52,12 +57,12 @@ export function Home() {
 
     return (
         <div id="home-page">
-            <aside className={`home-aside aside-open-${isAsideOpen}`}>
+            <aside id='home-aside' className={`home-aside-container aside-open-${isAsideOpen}`}>
                 <section className="content">
                     <ToggleDark />
                     <h1>Categorias</h1>
                     <ul>
-                        <li><button type="button" onClick={() => setFilterCategory({label: 'Geral', value: null})}><p>Geral</p></button></li>
+                        <li><button type="button" onClick={() => setFilterCategory({ label: 'Geral', value: null })}><p>Geral</p></button></li>
                         {categories.map((category, index) => {
                             const categoryName = category.label
                             return <li key={index}><button type="button" onClick={() => setFilterCategory(category)}><p>{categoryName}</p></button></li>
@@ -73,19 +78,21 @@ export function Home() {
                 <header>
                     <div className="content">
                         <h1>{filterCategory.label}</h1>
-                        <button className="user-button" onClick={() => setOptionsOpen(!optionsOpen)}>
-                            <img src={user?.avatar} alt="Profile" />
-                        </button>
-                        <div className="user-options" style={{ display: optionsOpen ? 'flex' : 'none' }}>
-                            <p>{user?.name}</p>
-                            <button>Trocar de conta</button>
-                            <button onClick={() => {
-                                signOut(auth).then(() => {
-                                    clearIndexedDbPersistence(database)
-                                })
-                                setUser(undefined)
-                            }}>Sair</button>
-                        </div>
+                        <section id='user-options'>
+                            <button className="user-button" onClick={() => setOptionsOpen(!optionsOpen)}>
+                                <img src={user?.avatar} alt="Profile" />
+                            </button>
+                            <div className="user-options-container" style={{ display: optionsOpen ? 'flex' : 'none' }}>
+                                <p>{user?.name}</p>
+                                <button>Trocar de conta</button>
+                                <button onClick={() => {
+                                    signOut(auth).then(() => {
+                                        clearIndexedDbPersistence(database)
+                                    })
+                                    setUser(undefined)
+                                }}>Sair</button>
+                            </div>
+                        </section>
                     </div>
                 </header>
 
@@ -101,12 +108,12 @@ export function Home() {
                                 placeholder="Pesquisar nota..."
                             />
                         </div>
-                        <div className={`calendar-container datepicker-open-${showDatePicker}`}>
+                        <div id='date-picker-filter-div' className={`calendar-container datepicker-open-${showDatePicker}`}>
                             <button type="button" className="calendar-button-container" onClick={() => setShowDatePicker(!showDatePicker)}>
                                 <span className="date">{filterDate?.getDate()}</span>
                                 <span className="material-icons-outlined calendar">calendar_today</span>
                             </button>
-                            <button className="calendar-button-reset" style={{display: filterDate ? 'block' : 'none'}} onClick={() => setFilterDate(null)}>
+                            <button className="calendar-button-reset" style={{ display: filterDate ? 'block' : 'none' }} onClick={() => setFilterDate(null)}>
                                 <span className="material-icons reset-date">close</span>
                             </button>
                             <DatePickerComponent handleDate={handleNewDate} />

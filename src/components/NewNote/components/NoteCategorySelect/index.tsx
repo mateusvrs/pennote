@@ -4,6 +4,7 @@ import { database } from "../../../../services/firebase"
 import { useAuth } from "../../../../hooks/useAuth"
 import { useCategories } from "../../../../hooks/useCategories"
 import { useNoteInfo } from "../../../../hooks/useNoteInfo"
+import { useHideElements } from "../../../../hooks/useHideElements"
 import { useState } from "react"
 
 import CreatableSelect from 'react-select/creatable'
@@ -19,6 +20,8 @@ export function NoteCategorySelect(props: NoteCategorySelectProps) {
 
     const { categories } = useCategories()
     const [showCategories, setShowCategories] = useState(false)
+
+    useHideElements({ elementId: 'creatable-section', setShowElement: setShowCategories })
 
     async function handleCreateCategory(categoryName: string) {
         await addDoc(collection(database, `users/${user?.id}/categories`), {
@@ -42,7 +45,7 @@ export function NoteCategorySelect(props: NoteCategorySelectProps) {
     }
 
     return (
-        <section>
+        <section id='creatable-section'>
             <button type="button" style={{ backgroundColor: color }} onClick={() => setShowCategories(!showCategories)}>
                 <span className="material-icons-outlined">collections_bookmark</span>
             </button>
