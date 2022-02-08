@@ -7,6 +7,7 @@ import { CategoriesType } from "../../hooks/useCategories"
 export type CategoryRefType = Select<CategoriesType, false, GroupBase<CategoriesType>> | null
 
 export type NoteCategorySelectProps = {
+    isPWA: boolean
     categoryRef: CategoryRefType
     setCategoryRef: (value: CategoryRefType) => void
 }

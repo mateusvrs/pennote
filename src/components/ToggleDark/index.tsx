@@ -9,7 +9,7 @@ import { useAuth } from '../../hooks/useAuth'
 
 export function ToggleDark() {
     const { user } = useAuth()
-    const { isDark, setIsDark } = useContext(DarkContext)
+    const { isDark } = useContext(DarkContext)
 
     function handleToggleDark() {
         if (user) {
@@ -17,7 +17,6 @@ export function ToggleDark() {
                 isDark: !isDark
             })
         }
-        setIsDark(!isDark)
         document.querySelector('body')?.classList.toggle('dark')
     }
 

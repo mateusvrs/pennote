@@ -4,8 +4,7 @@ import { database } from "../../../../services/firebase"
 import { useAuth } from "../../../../hooks/useAuth"
 import { useCategories } from "../../../../hooks/useCategories"
 import { useNoteInfo } from "../../../../hooks/useNoteInfo"
-import { useHideElements } from "../../../../hooks/useHideElements"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import CreatableSelect from 'react-select/creatable'
 
@@ -21,7 +20,29 @@ export function NoteCategorySelect(props: NoteCategorySelectProps) {
     const { categories } = useCategories()
     const [showCategories, setShowCategories] = useState(false)
 
-    useHideElements({ elementId: 'creatable-section', setShowElement: setShowCategories })
+    useEffect(() => {
+        function handleClicks(event: MouseEvent) {
+            const element = document.getElementById('creatable-section')
+            const targetElement = event.target as HTMLElement
+
+            var haveInCategory = false
+            categories.forEach(({ label }) => {
+                if (targetElement.innerHTML === label) {
+                    haveInCategory = true
+                }
+            })
+            
+            if (!element?.contains(event.target as Node) && !haveInCategory) {
+                setShowCategories(false)
+            }
+        }
+
+        document.addEventListener('click', handleClicks)
+
+        return () => {
+            document.removeEventListener('click', handleClicks)
+        }
+    }, [setShowCategories, categories])
 
     async function handleCreateCategory(categoryName: string) {
         await addDoc(collection(database, `users/${user?.id}/categories`), {
@@ -51,6 +72,7 @@ export function NoteCategorySelect(props: NoteCategorySelectProps) {
             </button>
             <div className="creatable-container" style={{ display: showCategories ? 'block' : 'none' }}>
                 <CreatableSelect
+                    menuPlacement={props.isPWA ? 'top' : 'bottom'}
                     ref={ref => {
                         props.setCategoryRef(ref)
                     }}

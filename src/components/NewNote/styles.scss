@@ -1,5 +1,21 @@
 $base-background-color: #E5E5E5;
 
+.add-new-note-pwa {
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.6rem;
+    z-index: 4;
+
+    height: 40px;
+    width: 40px;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: #E5E5E5;
+    color: #2c2c2c;
+}
+
 .new-note-container, .note-container {
     display: flex;
     flex-direction: column;
@@ -103,7 +119,53 @@ $base-background-color: #E5E5E5;
     }
 }
 
+#pwa-new-note-true {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    z-index: 3 !important;
+
+    max-height: none;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0;
+
+    form {
+        height: 100%;
+        justify-content: space-between;
+
+        textarea {
+            height: 100%;
+        }
+    }
+
+    .buttons-container {
+        .block-picker {
+            top: -230px;
+
+            > div:first-of-type {
+                border: 0 !important;
+            }
+        }
+
+        .react-datepicker {
+            top: -245px;
+        }
+
+        section {
+            .creatable-container {
+                top: -3.8rem;                
+            }
+        }
+    }
+}
+
 .dark {
+    .add-new-note-pwa {
+        background-color: rgba(229, 229, 229, 0.75);
+    }
+
     .new-note-container, .note-container {
         filter: brightness(0.8);
 

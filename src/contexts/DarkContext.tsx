@@ -36,7 +36,6 @@ export function DarkContextProvider(props: DarkContextProviderProps) {
         }
     }, [user, setIsDark, setIsLoading])
 
-    console.log(isDark)
     if (isDark) {
         document.querySelector('body')?.classList.add('dark')
     }

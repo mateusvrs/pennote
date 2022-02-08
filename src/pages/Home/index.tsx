@@ -11,8 +11,7 @@ import { DatePickerComponent } from "../../components/DatePickerComponent"
 import { NoteInfoContextProvider } from "../../contexts/NoteInfoContext"
 
 import { signOut } from "firebase/auth"
-import { auth, database } from "../../services/firebase"
-import { clearIndexedDbPersistence } from "firebase/firestore"
+import { auth } from "../../services/firebase"
 
 import { useHome } from "../../hooks/useHome"
 import { useCategories } from "../../hooks/useCategories"
@@ -46,7 +45,7 @@ export function Home() {
     }
 
     function handleFilters(note: NoteInfoType, index: number) {
-        if (note.text.toLowerCase().includes(searchValue)) {
+        if (note.text.toLowerCase().includes(searchValue.toLocaleLowerCase())) {
             if (note.date === filterDate?.toDateString() || note.date === null || filterDate === null) {
                 if (note.category.value === filterCategory.value || filterCategory.value === null) {
                     return <Note key={index} id={note.id} color={note.color} text={note.text} date={note.date} isComplete={note.isComplete} category={note.category} />
@@ -86,9 +85,7 @@ export function Home() {
                                 <p>{user?.name}</p>
                                 <button>Trocar de conta</button>
                                 <button onClick={() => {
-                                    signOut(auth).then(() => {
-                                        clearIndexedDbPersistence(database)
-                                    })
+                                    signOut(auth)
                                     setUser(undefined)
                                 }}>Sair</button>
                             </div>
