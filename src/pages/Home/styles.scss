@@ -4,6 +4,22 @@ $white-background: #f1f1f1;
 $dark-background: #212121;
 $blue-base-dark-theme: #668199;
 
+body {
+    .ReactModal__Overlay {
+        z-index: 4;
+
+        .select-container {
+            button:hover {
+                cursor: pointer;
+            }
+            
+            .delete {
+                background-color: rgba(238, 95, 82, 0.8);
+            }
+        }
+    }
+}
+
 #home-page {
     position: relative;
     min-height: 100vh;
@@ -45,6 +61,9 @@ $blue-base-dark-theme: #668199;
 
             ul {
                 li {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
                     list-style: none;
                     border-bottom: 1px solid;
                     margin-bottom: 1rem;
@@ -55,16 +74,22 @@ $blue-base-dark-theme: #668199;
 
                         &:hover {
                             cursor: pointer;
-
-                            transform: translateX(8px);
-                            transition: transform 0.2s;
                         }
+                    }
+
+                    .category-name-button:hover {
+                        transform: translateX(8px);
+                        transition: transform 0.2s;
                     }
 
                     p {
                         text-align: left;
                         font-size: 16px;
                         color: #2c2c2c;
+                    }
+
+                    span {
+                        font-size: 12px;
                     }
                 }
             }
@@ -275,6 +300,14 @@ $blue-base-dark-theme: #668199;
 }
 
 .dark {
+    .ReactModal__Overlay {
+        .select-container {
+            .delete {
+                background-color: rgba(238, 95, 82, 0.7);
+            }
+        }
+    }
+
     #home-page {
         color: #f0f0f0;
 

@@ -7,18 +7,21 @@ import './styles.scss'
 import { NewNote } from "../../components/NewNote"
 import { Note } from "../../components/Note"
 import { DatePickerComponent } from "../../components/DatePickerComponent"
+import { ToggleDark } from "../../components/ToggleDark"
+import Modal from 'react-modal'
 
 import { NoteInfoContextProvider } from "../../contexts/NoteInfoContext"
 
 import { signOut } from "firebase/auth"
-import { auth } from "../../services/firebase"
+import { auth, database } from "../../services/firebase"
+import { deleteDoc, doc } from "firebase/firestore"
 
 import { useHome } from "../../hooks/useHome"
 import { useCategories } from "../../hooks/useCategories"
 
 import { NoteInfoType } from "../../types/hooks/useHome"
+import { CategoriesType } from "../../types/hooks/useCategories"
 import { FilterCategoryType, FilterDateType } from "../../types/pages/Home"
-import { ToggleDark } from "../../components/ToggleDark"
 
 export function Home() {
     const { user, setUser } = useAuth()
@@ -34,6 +37,9 @@ export function Home() {
     const [isAsideOpen, setIsAsideOpen] = useState(false)
     const [optionsOpen, setOptionsOpen] = useState(false)
 
+    const [categoryToDelete, setCategoryToDelete] = useState<CategoriesType | null>(null)
+    const [showDeleteCategoryModal, setShowDeleteCategoryModal] = useState(false)
+
     useHideElements({ elementId: 'date-picker-filter-div', setShowElement: setShowDatePicker })
     useHideElements({ elementId: 'home-aside', setShowElement: setIsAsideOpen })
     useHideElements({ elementId: 'user-options', setShowElement: setOptionsOpen })
@@ -41,6 +47,21 @@ export function Home() {
     function handleNewDate(date: Date | null) {
         if (date) {
             setFilterDate(date)
+        }
+    }
+
+    async function handleDeleteCategory(category: CategoriesType | null) {
+        if (category) {
+            await deleteDoc(doc(database, `users/${user?.id}/categories/${category.value}`)).then(() => {
+                notes.forEach(note => {
+                    if (note.category.value === category.value) {
+                        deleteDoc(doc(database, `users/${user?.id}/notes/${note.id}`))
+                    }
+                })
+                setShowDeleteCategoryModal(false)
+            })
+        } else {
+            setShowDeleteCategoryModal(false)
         }
     }
 
@@ -56,15 +77,39 @@ export function Home() {
 
     return (
         <div id="home-page">
+            <Modal isOpen={showDeleteCategoryModal} className='Modal'>
+                <div className="container">
+                    <p>Tem certeza que deseja excluir essa categoria? Todas as suas notas relacionadas também serão apagadas.</p>
+                    <div className="select-container">
+                        <button type='button' className='cancel' onClick={() => {
+                            setCategoryToDelete(null)
+                            setShowDeleteCategoryModal(false)
+                        }}>
+                            Cancelar
+                        </button>
+                        <button type='button' className='delete' onClick={() => handleDeleteCategory(categoryToDelete)}>
+                            Excluir
+                        </button>
+                    </div>
+                </div>
+            </Modal>
             <aside id='home-aside' className={`home-aside-container aside-open-${isAsideOpen}`}>
                 <section className="content">
                     <ToggleDark />
                     <h1>Categorias</h1>
                     <ul>
-                        <li><button type="button" onClick={() => setFilterCategory({ label: 'Geral', value: null })}><p>Geral</p></button></li>
+                        <li><button type="button" className="category-name-button" onClick={() => setFilterCategory({ label: 'Geral', value: null })}><p>Geral</p></button></li>
                         {categories.map((category, index) => {
                             const categoryName = category.label
-                            return <li key={index}><button type="button" onClick={() => setFilterCategory(category)}><p>{categoryName}</p></button></li>
+                            return (
+                                <li key={index}>
+                                    <button type="button" className="category-name-button" onClick={() => setFilterCategory(category)}><p>{categoryName}</p></button>
+                                    <button type="button" onClick={() => {
+                                        setCategoryToDelete(category)
+                                        setShowDeleteCategoryModal(true)
+                                    }}><span className="material-icons-outlined">close</span></button>
+                                </li>
+                            )
                         })}
                     </ul>
                 </section>
@@ -83,7 +128,6 @@ export function Home() {
                             </button>
                             <div className="user-options-container" style={{ display: optionsOpen ? 'flex' : 'none' }}>
                                 <p>{user?.name}</p>
-                                <button>Trocar de conta</button>
                                 <button onClick={() => {
                                     signOut(auth)
                                     setUser(undefined)
