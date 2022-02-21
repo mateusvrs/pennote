@@ -7,5 +7,9 @@ export type NoteProps = {
     category: {
         value: string | null
         label: string | null
-    }
+    },
+    stateShowNewNotePWA: [
+        showNewNotePWA: boolean,
+        setShowNewNotePWA: (showNewNotePWA: boolean) => void
+    ]
 }

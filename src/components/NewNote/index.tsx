@@ -17,16 +17,17 @@ import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { database } from '../../services/firebase';
 
 import { CategoryRefType } from '../../types/components/NewNote/NoteCategorySelect';
+import { NewNoteProps } from '../../types/components/NewNote';
 
-export function NewNote() {
+export function NewNote({ stateShowNewNotePWA }: NewNoteProps) {
     const { user } = useAuth()
     const { noteInfo, defaultNoteInfo, setNoteInfo } = useNoteInfo()
     const { color, text } = noteInfo
     const { isDark } = useContext(DarkContext)
 
     const [categoryRef, setCategoryRef] = useState<CategoryRefType>(null)
-    const [showNewNotePWA, setShowNewNotePWA] = useState(false)
     const [isPWA, setIsPWA] = useState(false)
+    const [showNewNotePWA, setShowNewNotePWA] = stateShowNewNotePWA
 
     useEffect(() => {
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches

@@ -28,6 +28,8 @@ export function Home() {
     const { notes } = useHome()
     const { categories } = useCategories()
 
+    const stateShowNewNotePWA = useState(false)
+
     const [showDatePicker, setShowDatePicker] = useState(false)
 
     const [filterDate, setFilterDate] = useState<FilterDateType>(null)
@@ -69,7 +71,8 @@ export function Home() {
         if (note.text.toLowerCase().includes(searchValue.toLocaleLowerCase())) {
             if (note.date === filterDate?.toDateString() || note.date === null || filterDate === null) {
                 if (note.category.value === filterCategory.value || filterCategory.value === null) {
-                    return <Note key={index} id={note.id} color={note.color} text={note.text} date={note.date} isComplete={note.isComplete} category={note.category} />
+                    return <Note key={index} id={note.id} stateShowNewNotePWA={stateShowNewNotePWA}
+                        color={note.color} text={note.text} date={note.date} isComplete={note.isComplete} category={note.category} />
                 }
             }
         }
@@ -162,7 +165,7 @@ export function Home() {
                     </div>
                     <div className="notes-container">
                         <NoteInfoContextProvider>
-                            <NewNote />
+                            <NewNote stateShowNewNotePWA={stateShowNewNotePWA} />
                             {notes.map((note, index) => handleFilters(note, index))}
                         </NoteInfoContextProvider>
                     </div>
