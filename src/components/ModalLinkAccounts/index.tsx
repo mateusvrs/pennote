@@ -28,7 +28,7 @@ export function ModalLinkAccounts({ isTesting = false }: ModalLinkAccountsProps)
     return (
         <Modal isOpen={isTesting ? isTesting : isModalOpen} className='Modal' >
             <div className='container'>
-                <p><span>Você já possui uma conta, deseja conecta-las?</span></p>
+                <p><span>Você já possui outra conta, deseja conecta-las?</span></p>
                 <div className="select-container">
                     <button type='button' className='cancel' onClick={resetModalInfo}>
                         Cancelar
