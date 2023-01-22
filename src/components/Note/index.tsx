@@ -35,7 +35,7 @@ export function Note(props: NoteProps) {
                 <span className="material-icons-outlined" onClick={handleCompleteNote}>check_circle</span>
             </header>
             <main>
-                <p style={{ textDecoration: props.isComplete ? 'line-through' : 'none' }}>{props.text}</p>
+                <pre style={{ textDecoration: props.isComplete ? 'line-through' : 'none' }}>{props.text}</pre>
             </main>
             <footer>
                 <span className="date-text">{props.date}</span>

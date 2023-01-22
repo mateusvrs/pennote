@@ -16,7 +16,7 @@ $base-background-color: #E5E5E5;
             font-weight: 500;
         }
 
-        > span {
+        >span {
             margin-top: 5px;
 
             &:hover {
@@ -29,9 +29,10 @@ $base-background-color: #E5E5E5;
     main {
         width: 95%;
         height: 100%;
-        
-        p {
+
+        pre {
             text-decoration: none;
+            font-family: 'Poppins', sans-serif;
         }
     }
 
@@ -78,7 +79,7 @@ $base-background-color: #E5E5E5;
                 color: #1c1c1c;
             }
 
-            > span {
+            >span {
                 color: #2c2c2c;
             }
         }
